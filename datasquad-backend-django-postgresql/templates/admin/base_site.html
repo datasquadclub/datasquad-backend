@@ -1,0 +1,24 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'admin/css/datasquad_admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+<div id="site-name">
+  <a href="{% url 'admin:index' %}">
+    <img src="{% static 'admin/img/datasquad-logo.png' %}" alt="Data Squad" class="ds-logo">
+    <span>{{ site_header|default:_('Django administration') }}</span>
+  </a>
+</div>
+{% if user.is_active and user.is_staff %}
+  {% url 'django-admindocs-docroot' as docsroot %}
+  {% if docsroot %}
+    <div class="d-flex" id="docs">📚 <a href="{{ docsroot }}">Documentation</a></div>
+  {% endif %}
+{% endif %}
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

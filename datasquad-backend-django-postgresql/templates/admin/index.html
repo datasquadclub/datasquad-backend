@@ -1,0 +1,59 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static log %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'admin/css/datasquad_admin.css' %}">{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+{% block bodyclass %}{{ block.super }} dashboard ds-dashboard{% endblock %}
+{% block nav-breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div class="ds-hero">
+  <div>
+    <h1>Bonjour {% firstof user.get_short_name user.get_username %} 👋</h1>
+    <p>Un seul endroit pour suivre les visites et gérer le contenu du site Data Squad.</p>
+  </div>
+  <a class="ds-hero-btn" href="{% url 'admin:tracking_dashboard' %}">📊 Tableau de bord des visites</a>
+</div>
+
+<div id="content-main" class="ds-card-grid">
+  {% for app in app_list %}
+  <div class="ds-app-card">
+    <h2>{{ app.name }}</h2>
+    <ul>
+      {% for model in app.models %}
+      <li>
+        <span>
+          {% if model.admin_url %}<a href="{{ model.admin_url }}">{{ model.name }}</a>{% else %}{{ model.name }}{% endif %}
+        </span>
+        {% if model.add_url %}<a href="{{ model.add_url }}" class="ds-add" title="Ajouter">+</a>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% empty %}
+  <p>{% translate "You don't have permission to view or edit anything." %}</p>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related">
+  <div class="module ds-recent" id="recent-actions-module">
+    <h2>Actions récentes</h2>
+    {% get_admin_log 10 as admin_log for_user user %}
+    {% if not admin_log %}
+      <p class="ds-empty">Aucune action pour l'instant.</p>
+    {% else %}
+    <ul class="actionlist">
+      {% for entry in admin_log %}
+      <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+        {% if entry.is_deletion or not entry.get_admin_url %}{{ entry.object_repr }}{% else %}<a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>{% endif %}
+        <br><span class="mini quiet">{% if entry.content_type %}{{ entry.content_type.name|capfirst }}{% else %}Contenu inconnu{% endif %}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

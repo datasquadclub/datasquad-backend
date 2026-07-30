@@ -1,0 +1,66 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<style>
+  .ds-cards{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+  .ds-card{background:#fff;border:1px solid #ddd;border-radius:8px;padding:16px 20px;min-width:160px;}
+  .ds-card .n{font-size:28px;font-weight:700;color:#2c3e6b;}
+  .ds-card .l{color:#666;font-size:13px;}
+  .ds-section{margin-bottom:28px;}
+  .ds-bar-row{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:13px;}
+  .ds-bar-label{width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .ds-bar-track{flex:1;background:#eee;border-radius:4px;height:14px;position:relative;}
+  .ds-bar-fill{background:#c68a3d;height:100%;border-radius:4px;}
+  .ds-bar-n{width:40px;text-align:right;color:#444;}
+</style>
+
+<h1>Tableau de bord des visites — Data Squad</h1>
+
+<div class="ds-cards">
+  <div class="ds-card"><div class="n">{{ total_visits }}</div><div class="l">Visites totales (depuis le lancement)</div></div>
+  <div class="ds-card"><div class="n">{{ visits_today }}</div><div class="l">Visites aujourd'hui</div></div>
+  <div class="ds-card"><div class="n">{{ visits_30d }}</div><div class="l">Visites (30 derniers jours)</div></div>
+  <div class="ds-card"><div class="n">{{ unique_visitors_30d }}</div><div class="l">Visiteurs uniques (30 j)</div></div>
+</div>
+
+<div class="ds-section">
+  <h2>Visites par jour (14 derniers jours)</h2>
+  {% for d in per_day %}
+  <div class="ds-bar-row">
+    <div class="ds-bar-label">{{ d.day }}</div>
+    <div class="ds-bar-track"><div class="ds-bar-fill" style="width:{{ d.pct }}%"></div></div>
+    <div class="ds-bar-n">{{ d.n }}</div>
+  </div>
+  {% empty %}<p>Aucune visite enregistrée pour l'instant.</p>{% endfor %}
+</div>
+
+<div class="ds-section">
+  <h2>Pages les plus visitées (30 j)</h2>
+  {% for p in top_pages %}
+  <div class="ds-bar-row">
+    <div class="ds-bar-label">{{ p.path }}</div>
+    <div class="ds-bar-track"><div class="ds-bar-fill" style="width:{{ p.pct }}%"></div></div>
+    <div class="ds-bar-n">{{ p.n }}</div>
+  </div>
+  {% empty %}<p>Aucune donnée.</p>{% endfor %}
+</div>
+
+<div class="ds-section">
+  <h2>Visiteurs par pays (30 j)</h2>
+  {% for c in countries %}
+  <div class="ds-bar-row">
+    <div class="ds-bar-label">{{ c.country }}</div>
+    <div class="ds-bar-track"><div class="ds-bar-fill" style="width:{{ c.pct }}%"></div></div>
+    <div class="ds-bar-n">{{ c.n }}</div>
+  </div>
+  {% empty %}<p>Aucune donnée pour l'instant (le pays se remplit progressivement à mesure que le site reçoit des visites).</p>{% endfor %}
+</div>
+
+<div class="ds-section">
+  <h2>Répartition par appareil (30 j)</h2>
+  {% for d in devices %}
+  <div class="ds-bar-row"><div class="ds-bar-label">{{ d.device_type }}</div><div class="ds-bar-n" style="width:auto">{{ d.n }}</div></div>
+  {% empty %}<p>Aucune donnée.</p>{% endfor %}
+</div>
+
+<p><a href="../">&larr; Voir la liste détaillée des visites</a></p>
+{% endblock %}

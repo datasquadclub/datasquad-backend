@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+
+:root, html[data-theme="light"], html[data-theme="dark"] {
+  --primary: #0D1B4C;
+  --primary-fg: #ffffff;
+  --secondary: #1E90FF;
+  --accent: #1E90FF;
+  --header-color: #ffffff;
+  --header-bg: #0D1B4C;
+  --header-branding-color: #ffffff;
+  --header-link-color: #ffffff;
+  --breadcrumbs-fg: #cfd9f7;
+  --breadcrumbs-bg: #16245e;
+  --link-fg: #0D1B4C;
+  --link-hover-color: #1E90FF;
+  --link-selected-fg: #1E90FF;
+  --button-bg: #1E90FF;
+  --button-fg: #ffffff;
+  --button-hover-bg: #0D1B4C;
+  --default-button-bg: #0D1B4C;
+  --default-button-hover-bg: #1E90FF;
+  --object-tools-bg: #1E90FF;
+  --object-tools-hover-bg: #0D1B4C;
+  --selected-bg: #eaf2ff;
+  --selected-row: #eaf2ff;
+  --font-family-primary: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body { font-family: var(--font-family-primary); }
+
+h1, h2, h3, #site-name, .module h2, .module caption {
+  font-family: 'Space Grotesk', var(--font-family-primary);
+}
+
+#header {
+  background: var(--header-bg);
+  color: var(--header-color);
+  box-shadow: 0 2px 8px rgba(13,27,76,.25);
+}
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+#site-name { display: flex; align-items: center; gap: 12px; }
+#site-name .ds-logo { height: 30px; width: auto; display: block; }
+
+div.breadcrumbs {
+  background: var(--breadcrumbs-bg);
+  color: var(--breadcrumbs-fg);
+}
+div.breadcrumbs a { color: #ffffff; }
+
+.module h2, .module caption, .inline-group h2 {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+  background: var(--button-bg);
+  color: #ffffff;
+  border-radius: 6px;
+}
+.button:hover, input[type=submit]:hover, .submit-row input:hover {
+  background: var(--button-hover-bg);
+}
+.button.default, input[type=submit].default, .submit-row input.default {
+  background: var(--default-button-bg);
+}
+.button.default:hover, input[type=submit].default:hover {
+  background: var(--default-button-hover-bg);
+}
+
+a:link, a:visited { color: var(--link-fg); }
+a:hover { color: var(--link-hover-color); }
+
+.selector-chosen h2, .object-tools a {
+  background: var(--object-tools-bg) !important;
+}
+
+#changelist-filter h2 {
+  background: var(--primary);
+  color: #fff;
+}
+
+.dashboard .module table th, .dashboard .module table td { font-family: var(--font-family-primary); }
+
+/* ---------------------------------------------------------------- */
+/* Page de connexion -- carte centrée, débarrassée du bandeau admin  */
+/* ---------------------------------------------------------------- */
+body.ds-login #container { background: linear-gradient(160deg, #0D1B4C 0%, #16245e 45%, #1E90FF 130%); min-height: 100vh; }
+.ds-login-wrap { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
+.ds-login-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px 36px 32px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  text-align: center;
+}
+.ds-login-logo { height: 48px; width: auto; margin-bottom: 18px; }
+.ds-login-card h1 { font-size: 20px; margin: 0 0 6px; color: var(--primary); }
+.ds-login-sub { color: #5b6478; font-size: 13px; margin: 0 0 22px; }
+.ds-field { text-align: left; margin-bottom: 14px; }
+.ds-field label { display:block; font-size: 12px; font-weight: 600; color: #333; margin-bottom: 4px; }
+.ds-field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid #d8dce6;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.ds-field input:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(30,144,255,.15); }
+.ds-submit { margin-top: 18px; padding: 0; text-align: center; }
+.ds-submit input[type=submit] {
+  width: 100%;
+  padding: 11px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+.ds-login-foot { margin-top: 20px; font-size: 12px; color: #9aa2b4; }
+
+/* ---------------------------------------------------------------- */
+/* Page d'accueil -- bandeau + grille de cartes par section          */
+/* ---------------------------------------------------------------- */
+.ds-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: linear-gradient(120deg, var(--primary), #1a2f7a);
+  color: #fff;
+  border-radius: 14px;
+  padding: 22px 26px;
+  margin-bottom: 24px;
+}
+.ds-hero h1 { color: #fff; font-size: 20px; margin: 0 0 4px; }
+.ds-hero p { margin: 0; color: #d7e2ff; font-size: 13px; }
+.ds-hero-btn {
+  background: var(--secondary);
+  color: #fff !important;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+  text-decoration: none !important;
+}
+.ds-hero-btn:hover { background: #ffffff; color: var(--primary) !important; }
+
+.ds-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+.ds-app-card {
+  background: #fff;
+  border: 1px solid #e5e8f0;
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+.ds-app-card h2 {
+  background: none !important;
+  color: var(--primary) !important;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  padding: 0 0 10px;
+  margin: 0 0 10px;
+  border-bottom: 2px solid #eef1fb;
+}
+.ds-app-card ul { list-style: none; margin: 0; padding: 0; }
+.ds-app-card li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid #f4f5f9;
+  font-size: 13.5px;
+}
+.ds-app-card li:last-child { border-bottom: none; }
+.ds-app-card a { text-decoration: none; }
+.ds-app-card .ds-add {
+  background: #eaf2ff;
+  color: var(--secondary) !important;
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 700;
+}
+
+#content-related .module.ds-recent { border-radius: 12px; overflow: hidden; border: 1px solid #e5e8f0; }
+#content-related .module.ds-recent h2 { background: var(--primary); color: #fff; padding: 10px 14px; margin: 0; font-size: 13px; }
+.ds-empty { color: #9aa2b4; font-size: 13px; padding: 12px 14px; }
+
+/* Barre latérale de navigation (pages internes, hors accueil) */
+#nav-sidebar { background: #f7f8fc; border-right: 1px solid #e5e8f0; }
+.main > #nav-sidebar .current-model, #nav-sidebar a:hover { color: var(--secondary); }
